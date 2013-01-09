@@ -16,7 +16,7 @@
     } else {
       form$ = $("#payment-form");
       token = response['id'];
-      form$.append("<input style='display:none' type='text' name='stripeToken' id='stripeToken' value='" + token + "' />");
+      form$.append("<input type='hidden' name='stripeToken' id='stripeToken' value='" + token + "' />");
       return form$.get(0).submit();
     }
   };

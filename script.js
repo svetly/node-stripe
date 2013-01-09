@@ -7,7 +7,6 @@ app.use(express.bodyParser()); //auto populate the body property of request vari
 // static files
 app.use(express.static(__dirname + '/public'));
 app.use(express.bodyParser());
-//app.use(express.bodyParser({type: 'hidden'}));
 app.use(app.router);
 
 

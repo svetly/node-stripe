@@ -1,9 +1,9 @@
 
 exports.process_payment_basic = (req,res) ->
-#  res.render 'plan_result.ejs', { 
-#    title: 'Thanks For Supporting Us!!'
-#  }
-
+  res.render 'plan_result.ejs'
+    title: 'Thanks For Supporting the Grid!!'
+  
+  
   console.log "Basic Account Initiated"
 
   api_key = 'sk_test_ixWCFyk1Jl9Rt6TtLMkzg3Qd';  # secret stripe API key
@@ -12,6 +12,7 @@ exports.process_payment_basic = (req,res) ->
 # get the credit card details submitted by the form
   token = req?.body?.stripeToken
   if !token then console.log("token not found")
+  else console.log(req.body)
   
   stripe.charges.create
     amount: 2000
