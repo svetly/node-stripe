@@ -2,11 +2,10 @@ var express = require('express');
 
 
 var app = express.createServer();
-app.use(express.bodyParser()); //auto populate the body property of request variable
 
 // static files
 app.use(express.static(__dirname + '/public'));
-app.use(express.bodyParser());
+app.use(express.bodyParser()); //auto populate the body property of request variable
 app.use(app.router);
 
 
@@ -17,6 +16,8 @@ app.get('/', function(req, res){
   res.render('index.ejs', {title: 'The Grid'});
 });
 
+
+
 app.get('/plans', function(req, res){
   res.render('plans.ejs', {title: 'The Grid'});
 });
@@ -24,11 +25,11 @@ app.get('/plans', function(req, res){
 
 
 // BASIC PLAN
-app.get('/plans_basic', function(req, res){
-  res.render('plans_basic.ejs', {title: 'Support the Grid'});
+app.get('/order_basic', function(req, res){
+  res.render('order_basic.ejs', {title: 'Support the Grid', amount: 20});
 });
 //post request -> invokes process payment function
-app.post('/plans_basic', pay_stripe.process_payment_basic); //access post object
+app.post('/order_basic', pay_stripe.process_payment_basic); //access post object
 
 
 

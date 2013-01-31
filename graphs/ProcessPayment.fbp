@@ -1,0 +1,31 @@
+# Input ports
+EXPORT=APIKEY.IN:APIKEY
+EXPORT=CUSTOMER.IN:CUSTOMERDATA
+EXPORT=CHARGE.DATA:CHARGEDATA
+
+# Output ports
+EXPORT=SPLITCUSTOMER.OUT:CUSTOMER
+EXPORT=DOCHARGE.OUT:CHARGE
+EXPORT=ERRORS.OUT:ERROR
+
+# Give the Stripe API key
+ApiKey(Split) OUT -> APIKEY DoCharge(stripe/CreateCharge)
+ApiKey() OUT -> APIKEY Customer(stripe/CreateCustomer)
+
+# Register a new customer
+Customer() OUT -> IN SplitCustomer(Split)
+
+# Get the ID of the newly-created customer
+'id' -> KEY GetCustomerId(GetObjectKey)
+'customer' -> PROPERTY SetCustomerId(SetPropertyValue)
+SplitCustomer() OUT -> IN GetCustomerId()
+GetCustomerId() OUT -> VALUE SetCustomerId()
+
+# When customer has been registered, charge him
+SplitCustomer() OUT -> IN Charge(Kick)
+Charge() OUT -> IN SetCustomerId()
+SetCustomerId() OUT -> IN Display(Output) OUT -> IN DoCharge()
+
+# Error handling
+DoCharge() ERROR -> IN Errors(Merge)
+Customer() ERROR -> IN Errors()
