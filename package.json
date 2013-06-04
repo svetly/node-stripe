@@ -1,5 +1,5 @@
 {
-  "name": "node-stripe",
+  "name": "stripeapp",
   "version": "1.0.0",
   "main": "recipes.js",
   "scripts": {
@@ -11,13 +11,18 @@
     "stripe": "~1.2.0",
     "vows": "~0.7.0",
 		"noflo": "0.3.x",
-		"noflo-stripe": "0.0.x"
+		"noflo-stripe": "0.0.x",
+		"noflo-ducksboard": "0.0.x",
+		"noflo-couchdb": "git://github.com/robingl/noflo-couchdb.git"
   },
 	"noflo": {
 	  "graphs": {
 			"ProcessPayment": "./graphs/ProcessPayment.fbp"
-	  }
+	  },
+		"components": {
+			"ConvertStripeAmount": "./components/ConvertStripeAmount.coffee"
+		}
 	},
-  "author": "Joe LeBlanc",
+  "author": "Svetly Metodiev",
   "license": "BSD"
 }

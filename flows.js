@@ -7,7 +7,7 @@
   exports.getPaymentGraph = function(apiKey, chargeCb, errorCb) {
     var graph;
     graph = new noflo.Graph('ProcessPayment');
-    graph.addNode('Process', 'node-stripe/ProcessPayment');
+    graph.addNode('Process', 'stripeapp/ProcessPayment');
     graph.addNode('Charge', 'Callback');
     graph.addNode('Error', 'Callback');
     graph.addEdge('Process', 'charge', 'Charge', 'in');
@@ -21,6 +21,7 @@
   exports.processPayment = function(apiKey, charge, customer, callback) {
     var graph;
     graph = exports.getPaymentGraph(apiKey, function(charge) {
+      console.log("called", charge);
       return callback(null, charge);
     }, function(error) {
       return callback(error, null);

@@ -4,8 +4,7 @@ EXPORT=CUSTOMER.IN:CUSTOMERDATA
 EXPORT=CHARGE.DATA:CHARGEDATA
 
 # Output ports
-EXPORT=SPLITCUSTOMER.OUT:CUSTOMER
-EXPORT=DOCHARGE.OUT:CHARGE
+EXPORT=CHARGEDONE.OUT:CHARGE
 EXPORT=ERRORS.OUT:ERROR
 
 # Give the Stripe API key
@@ -24,7 +23,29 @@ GetCustomerId() OUT -> VALUE SetCustomerId()
 # When customer has been registered, charge him
 SplitCustomer() OUT -> IN Charge(Kick)
 Charge() OUT -> IN SetCustomerId()
-SetCustomerId() OUT -> IN Display(Output) OUT -> IN DoCharge()
+SetCustomerId() OUT -> IN DoCharge()
+DoCharge() OUT -> IN SplitCharge(Split)
+SplitCharge() OUT -> IN ChargeDone(Repeat)
+
+# Store the customer into CouchDB for later analysis
+'http://localhost:5984/grid' -> URL StoreCustomer(couchdb/WriteDocument)
+SplitCustomer() OUT -> IN StoreCustomer() OUT -> IN Display(Output)
+StoreCustomer() LOG -> IN Display(Output)
+
+# Store the charge into CouchDB for later analysis
+'http://localhost:5984/grid' -> URL StoreCharge(couchdb/WriteDocument)
+SplitCharge() OUT -> IN StoreCharge() OUT -> IN Display(Output)
+StoreCharge() LOG -> IN Display(Output)
+
+# Report to dashboard
+'amount' -> KEY GetAmount(GetObjectKey)
+SplitCharge() OUT -> IN GetAmount()
+'hGPTkKDV7g0pEBKBVBJW0F45gYRvcyruffkzRqB1iTFHqoDAgH' -> TOKEN PushAmount(ducksboard/PushDelta)
+'112371' -> ENDPOINT PushAmount()
+GetAmount() OUT -> IN ConvertAmount(stripeapp/ConvertStripeAmount)
+ConvertAmount() OUT -> IN PushAmount()
+PushAmount() OUT -> IN DropPushed(Drop)
+PushAmount() ERROR -> IN DropError(Drop)
 
 # Error handling
 DoCharge() ERROR -> IN Errors(Merge)

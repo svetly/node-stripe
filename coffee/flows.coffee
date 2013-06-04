@@ -2,7 +2,7 @@ noflo = require 'noflo'
 
 exports.getPaymentGraph = (apiKey, chargeCb, errorCb) ->
   graph = new noflo.Graph 'ProcessPayment'
-  graph.addNode 'Process', 'node-stripe/ProcessPayment'
+  graph.addNode 'Process', 'stripeapp/ProcessPayment'
   graph.addNode 'Charge', 'Callback'
   graph.addNode 'Error', 'Callback'
   # Connect them together
@@ -19,6 +19,7 @@ exports.processPayment = (apiKey, charge, customer, callback) ->
   # Prepare graph and callbacks
   graph = exports.getPaymentGraph apiKey
   , (charge) ->
+    console.log "called", charge
     callback null, charge
   , (error) ->
     callback error, null
