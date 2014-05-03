@@ -3,13 +3,10 @@
   var PORT, app, express, pay_stripe;
 
   express = require("express");
-
+	
   app = express.createServer();
-
   app.use(express["static"](__dirname + "/public"));
-
   app.use(express.bodyParser());
-
   app.use(app.router);
 
   pay_stripe = require("./pay_stripe.js");

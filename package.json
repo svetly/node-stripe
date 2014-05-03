@@ -6,23 +6,25 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "2.5.11",
     "ejs": "0.7.2",
+    "express": "2.5.11",
+    "noflo": "0.3.x",
+    "noflo-core": "^0.1.7",
+    "noflo-couchdb": "git://github.com/robingl/noflo-couchdb.git",
+    "noflo-ducksboard": "0.0.x",
+    "noflo-nodejs": "0.0.5",
+    "noflo-stripe": "0.0.x",
     "stripe": "~1.2.0",
-    "vows": "~0.7.0",
-		"noflo": "0.3.x",
-		"noflo-stripe": "0.0.x",
-		"noflo-ducksboard": "0.0.x",
-		"noflo-couchdb": "git://github.com/robingl/noflo-couchdb.git"
+    "vows": "~0.7.0"
   },
-	"noflo": {
-	  "graphs": {
-			"ProcessPayment": "./graphs/ProcessPayment.fbp"
-	  },
-		"components": {
-			"ConvertStripeAmount": "./components/ConvertStripeAmount.coffee"
-		}
-	},
+  "noflo": {
+    "graphs": {
+      "ProcessPayment": "./graphs/ProcessPayment.fbp"
+    },
+    "components": {
+      "ConvertStripeAmount": "./components/ConvertStripeAmount.coffee"
+    }
+  },
   "author": "Svetly Metodiev",
   "license": "BSD"
 }

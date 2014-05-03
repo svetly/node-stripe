@@ -7,7 +7,8 @@
   exports.process_payment_basic = function(req, res) {
     var api_key, chargeData, customerData;
     console.log("Basic Account Initiated");
-    api_key = 'sk_test_ixWCFyk1Jl9Rt6TtLMkzg3Qd';
+    api_key = 'sk_test_fAUBYifVrkEfPLSF8iNBIrF8';
+    console.log("Test Sectret Key: " + api_key);
     chargeData = {
       amount: 2000,
       currency: "usd",
@@ -38,7 +39,7 @@
       title: 'You have been subscribed to the Pro Plan. Thank you for supporting The Grid!!'
     });
     console.log("Pro Account Initiated");
-    api_key = 'sk_test_ixWCFyk1Jl9Rt6TtLMkzg3Qd';
+    api_key = 'sk_test_fAUBYifVrkEfPLSF8iNBIrF8';
     stripe = require('stripe')(api_key);
     token = req != null ? (_ref = req.body) != null ? _ref.stripeToken : void 0 : void 0;
     if (!token) {
@@ -66,7 +67,7 @@
     res.render('plan_result.ejs', {
       title: 'You have been subscribed to the Pro Plan. Thank you For Supporting the Grid!!'
     });
-    api_key = 'sk_test_ixWCFyk1Jl9Rt6TtLMkzg3Qd';
+    api_key = 'sk_test_fAUBYifVrkEfPLSF8iNBIrF8';
     stripe = require('stripe')(api_key);
     token = req != null ? (_ref = req.body) != null ? _ref.stripeToken : void 0 : void 0;
     if (!token) {

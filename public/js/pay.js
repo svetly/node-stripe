@@ -4,7 +4,7 @@
 
   publicStripeApiKey = '...';
 
-  publicStripeApiKeyTesting = 'pk_test_AA5XOx7UCeW0BIcpxBSE8vzh';
+  publicStripeApiKeyTesting = 'pk_test_wWU1d0rrwxxxe8KjW9OCzf7c';
 
   Stripe.setPublishableKey(publicStripeApiKeyTesting);
 
